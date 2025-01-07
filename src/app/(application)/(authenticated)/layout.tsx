@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import { getUser } from '@/server/auth'
+import Navigation from '@/components/custom/Navigation'
 
 type Props = { children: React.ReactNode }
 
@@ -10,6 +11,11 @@ const layout = async ({ children }: Props) => {
     redirect('/login')
   }
 
-  return <div>{children}</div>
+  return (
+    <div className="w-full mx-auto border">
+      {children}
+      <Navigation />
+    </div>
+  )
 }
 export default layout
