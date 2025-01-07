@@ -124,6 +124,7 @@ export interface Media {
  */
 export interface ApplicationUser {
   id: string;
+  role?: ('admin' | 'user') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -244,6 +245,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "application-users_select".
  */
 export interface ApplicationUsersSelect<T extends boolean = true> {
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

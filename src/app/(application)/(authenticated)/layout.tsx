@@ -1,25 +1,12 @@
-type Props = { children: React.ReactNode }
-import { cookies } from 'next/headers'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import { redirect } from 'next/navigation'
+import { getUser } from '@/server/auth'
+
+type Props = { children: React.ReactNode }
 
 const layout = async ({ children }: Props) => {
-  const cookiesStore = cookies()
-  const payload = await getPayload({
-    config: configPromise,
-  })
-  const token = await (await cookiesStore).get('payload-token')
-  console.log('token =====> ', token)
+  const user = await getUser() // проверяем по запросу "me" есть ли пользователь (прокидивая payload-token)
 
-  const data = await fetch(`${process.env.SERVER_URL}/api/application-users/me`, {
-    headers: {
-      cookie: `payload-token=${token?.value}`,
-    },
-  })
-  const json = await data.json()
-  console.log('me =====> ', json)
-  if (!json.user) {
+  if (!user) {
     redirect('/login')
   }
 

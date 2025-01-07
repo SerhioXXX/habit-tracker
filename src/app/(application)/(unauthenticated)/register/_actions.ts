@@ -69,8 +69,6 @@ export const register = async (prevState: any, formData: FormData) => {
     httpOnly: true, //process.env.NODE_ENV === 'production',
     path: '/',
   })
-  console.log('User registered successfully', newUser)
-  console.log('res login', res)
 
   redirect('/dashboard')
 
